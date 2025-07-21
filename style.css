@@ -705,6 +705,10 @@ header ul a:hover{
     opacity: 0.8;
     box-shadow: 0 0 15px #72a1de81;
 }
+.contact-box {
+  padding-bottom: 100px; /* tugma footerga urilmasligi uchun */
+}
+
 
 .footer{
     display: flex;
@@ -835,6 +839,34 @@ header ul a:hover{
     margin-top: 60px;
     text-wrap: nowrap;
 }
+.toast-message {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #111;
+  color: #fff;
+  padding: 12px 18px;
+  border-radius: 8px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.25);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 15px;
+  z-index: 9999;
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.3s ease;
+}
+.toast-message.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+.toast-message.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+
 
 .social-sidebar a{
     font-size: 35px;
