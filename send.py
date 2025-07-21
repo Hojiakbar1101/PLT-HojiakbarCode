@@ -1,5 +1,6 @@
 import requests
 from flask import Flask, request, jsonify
+import os
 
 app = Flask(__name__)
 
@@ -9,30 +10,32 @@ CHAT_ID = "5845778698"
 
 @app.route('/send', methods=['POST'])
 def send_to_telegram():
+    # Formdan ma'lumotlarni olish
     name = request.form.get('name')
     phone = request.form.get('phone')
     message = request.form.get('message')
 
-    # 🔧 Bo‘sh qiymatlarni tekshir
+    # 🔍 Bo‘sh maydonlar tekshiruvi
     if not name or not phone or not message:
         return jsonify({
             "success": False,
             "status": 400,
-            "detail": "Formadagi maydonlar to‘liq to‘ldirilmagan"
+            "detail": "Iltimos, barcha maydonlarni to‘ldiring."
         })
 
-    # 📦 Telegram xabari formatlanadi
+    # 📩 Telegramga yuboriladigan xabar matni
     text = (
-        "📬 Yangi murojaat:\n"
-        f"👤 Ism: {name}\n"
-        f"📞 Telefon: {phone}\n"
-        f"📝 Xabar: {message}"
+        "📬 *Yangi murojaat!*\n"
+        f"👤 *Ism:* {name}\n"
+        f"📞 *Telefon:* {phone}\n"
+        f"📝 *Xabar:* {message}"
     )
 
     url = f"https://api.telegram.org/bot{TOKEN}/sendMessage"
     payload = {
         'chat_id': CHAT_ID,
-        'text': text
+        'text': text,
+        'parse_mode': 'Markdown'
     }
 
     try:
@@ -56,9 +59,7 @@ def send_to_telegram():
             "detail": str(e)
         })
 
-# 🔧 Local serverni ishga tushiramiz
+# 🟢 Serverni ishga tushirish
 if __name__ == '__main__':
-    import os
-port = int(os.environ.get("PORT", 5000))
-app.run(host="0.0.0.0", port=port, debug=True)
-
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port, debug=True)
