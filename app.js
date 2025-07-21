@@ -52,7 +52,6 @@ function showToast(icon, message, color = "#fff") {
   }, 4000);
 }
 
-// 🔹 Kontakt formasi — Flask backendga POST so‘rov
 const form = document.querySelector('#contactForm');
 
 form.addEventListener('submit', function(e) {

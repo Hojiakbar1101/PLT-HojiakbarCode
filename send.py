@@ -8,14 +8,18 @@ app = Flask(__name__)
 TOKEN = "8087735167:AAHhimpG71xx8UJz8fd_NSHgSZSbQNRU_oI"
 CHAT_ID = "5845778698"
 
+# 🌐 Bosh sahifa - test uchun
+@app.route('/', methods=['GET'])
+def home():
+    return "<h1>✅ Telegram bot server ishlayapti</h1><p>POST so‘rov yuborish uchun <code>/send</code> endpointdan foydalaning.</p>"
+
+# 📬 Telegramga xabar yuborish uchun endpoint
 @app.route('/send', methods=['POST'])
 def send_to_telegram():
-    # Formdan ma'lumotlarni olish
     name = request.form.get('name')
     phone = request.form.get('phone')
     message = request.form.get('message')
 
-    # 🔍 Bo‘sh maydonlar tekshiruvi
     if not name or not phone or not message:
         return jsonify({
             "success": False,
@@ -23,7 +27,6 @@ def send_to_telegram():
             "detail": "Iltimos, barcha maydonlarni to‘ldiring."
         })
 
-    # 📩 Telegramga yuboriladigan xabar matni
     text = (
         "📬 *Yangi murojaat!*\n"
         f"👤 *Ism:* {name}\n"
@@ -58,11 +61,3 @@ def send_to_telegram():
             "status": 500,
             "detail": str(e)
         })
-
-# 🟢 Serverni ishga tushirish
-if __name__ == '__main__':
-    port = int(os.environ.get("PORT", 5000))
-    app.run(host='0.0.0.0', port=port, debug=True)
-@app.route('/', methods=['GET'])
-def home():
-    return "<h1>Telegram bot server ishlayapti ✅</h1><p>POST so‘rov yuborish uchun <code>/send</code> endpointga murojaat qiling.</p>"
