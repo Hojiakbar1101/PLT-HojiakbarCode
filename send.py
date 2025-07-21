@@ -63,3 +63,6 @@ def send_to_telegram():
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
     app.run(host='0.0.0.0', port=port, debug=True)
+@app.route('/', methods=['GET'])
+def home():
+    return "<h1>Telegram bot server ishlayapti ✅</h1><p>POST so‘rov yuborish uchun <code>/send</code> endpointga murojaat qiling.</p>"
